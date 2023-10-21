@@ -34,7 +34,7 @@ const selectionOptionForSorting = (arr) => {
         '\n     5. Show only unique words' +
         '\n     6. Display only unique values from the set of words and numbers entered by the user\n',
         (value) => {
-            const correctArr = []
+            let correctArr = []
             for (const item of arr) {
                 if (isNaN(item)) {
                     correctArr.push(item)
@@ -43,8 +43,8 @@ const selectionOptionForSorting = (arr) => {
                 }
             }
 
-            const arrNumbers = [];
-            const arrString = [];
+            let arrNumbers = [];
+            let arrString = [];
             for (const arrElement of correctArr) {
                 if (typeof arrElement === 'number') {
                     arrNumbers.push(arrElement)
