@@ -3,9 +3,10 @@ import fs from "fs";
 import TelegramBot from "node-telegram-bot-api";
 
 import { getIDs, pushID } from "./botIDs.js";
-import { configs } from "./config/index.js";
+import { getConfigs } from "./config/index.js";
 
 const program = new Command();
+const configs = await getConfigs();
 
 const token = configs.BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
