@@ -5,6 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint './**/*.js' --quiet",
+    "lint:fix": "eslint './**/*.js' --quiet --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +21,19 @@
   },
   "homepage": "https://github.com/AlenaMushko/serverless-academy#readme",
   "dependencies": {
-    "inquirer": "^9.2.11"
+    "commander": "^11.1.0",
+    "dotenv": "^16.3.1",
+    "inquirer": "^9.2.11",
+    "node-telegram-bot-api": "^0.63.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0"
   }
 }
