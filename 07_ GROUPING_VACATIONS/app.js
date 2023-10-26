@@ -36,18 +36,15 @@ try {
     };
   });
 
+  const writeToFile = (filePath, data) => {
+    fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
+      if (err) throw new Error(err.message);
+    });
+  };
+
   fs.access(newUsersDataPath, (err) => {
-    if (err) {
-      fs.writeFile(
-        newUsersDataPath,
-        JSON.stringify(formattedUsers, null, 2),
-        (err) => {
-          if (err) throw new Error(err.message);
-        },
-      );
-    } else {
-      fs.appendFile(JSON.stringify(formattedUsers, null, 2));
-    }
+    if (err) throw new Error(err.message);
+    writeToFile(newUsersDataPath, formattedUsers);
   });
 } catch (err) {
   console.log(err.message);
