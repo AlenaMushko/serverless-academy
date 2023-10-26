@@ -33,6 +33,7 @@ try {
   );
 } catch (err) {
   console.log(err.message);
+  throw new Error(err.message);
 }
 
 function uniqueValues(usersName) {
