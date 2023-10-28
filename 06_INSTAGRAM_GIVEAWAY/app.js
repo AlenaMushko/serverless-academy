@@ -8,21 +8,30 @@ const __dirname = path.dirname(__filename);
 const folderPath = path.resolve(__dirname, "names");
 
 let namesArr = [];
+const nameCounts = new Map();
 
 try {
   const files = fs.readdirSync(folderPath, "utf8");
 
   files.forEach((file) => {
     const filePath = path.resolve(__dirname, "names", `${file}`);
-    const filesData = fs.readFileSync(filePath, "utf8");
-    namesArr = namesArr.concat(filesData.split("\n"));
+    const filesData = fs.readFileSync(filePath, "utf8").split("\n");
+    const uniqueNames = uniqueValuesFromOneFile(filesData); // get uniqueValues from each files
+
+    namesArr = namesArr.concat(uniqueNames); // get arr uniqueValues from all files
+
+    uniqueNames.forEach((name) => {
+      if (nameCounts.has(name)) {
+        nameCounts.set(name, nameCounts.get(name) + 1);
+      } else {
+        nameCounts.set(name, 1);
+      }
+    });
   });
 
-  const nameCounts = getObjMap(files);
-
-  const uniqueUserName = uniqueValues(namesArr); //                                    value = 129240,        uniqueValues: 241.467ms
-  const usersNamesLength = existInAllFiles(nameCounts); //                             value = 2628,          existInAllFiles: 0.006ms
-  const usersNamesLengthForSomeFiles = existInAtleastTen(nameCounts, 10); //  value = 108345,        existInAtleastTen: 0.002ms
+  const uniqueUserName = uniqueValues(namesArr); //                                    value = 129240,        uniqueValues: 145.556ms
+  const usersNamesLength = existInAllFiles(nameCounts); //                             value = 441,           existInAllFiles: 0.937ms
+  const usersNamesLengthForSomeFiles = existInAtleastTen(nameCounts, 10); //  value = 73245,        existInAtleastTen: 1.992ms
 
   callTimeWorkFoo(
     namesArr,
@@ -36,26 +45,16 @@ try {
   throw new Error(err.message);
 }
 
+function uniqueValuesFromOneFile(data) {
+  const set = new Set(data);
+  const uniqueUsersArr = [...set];
+  return uniqueUsersArr;
+}
+
 function uniqueValues(usersName) {
   const set = new Set(usersName);
   const uniqueUsersArrLength = [...set].length;
   return uniqueUsersArrLength;
-}
-
-function getObjMap(files) {
-  const nameCounts = new Map();
-
-  files.forEach((file) => {
-    const filePath = path.resolve(__dirname, "names", `${file}`);
-    const filesData = fs.readFileSync(filePath, "utf8");
-    const namesArr = filesData.split("\n");
-
-    namesArr.forEach((name) => {
-      nameCounts.set(name, (nameCounts.get(name) || 0) + 1);
-    });
-  });
-
-  return nameCounts;
 }
 
 function existInAllFiles(nameCounts) {
@@ -66,7 +65,6 @@ function existInAllFiles(nameCounts) {
       arrNames.push(name);
     }
   });
-
   return arrNames.length;
 }
 
@@ -94,12 +92,12 @@ function callTimeWorkFoo(
   console.log(uniqueUserName);
 
   console.time("existInAllFiles");
-  existInAllFiles(files);
+  existInAllFiles(nameCounts);
   console.timeEnd("existInAllFiles");
   console.log(usersNamesLength);
 
   console.time("existInAtleastTen");
-  existInAtleastTen(files, 10);
+  existInAtleastTen(nameCounts, 10);
   console.timeEnd("existInAtleastTen");
   console.log(usersNamesLengthForSomeFiles);
 }
