@@ -1,3 +1,9 @@
+# sign-up
+## http://localhost:5001/auth/sign-up
+
+# sign-in
+## http://localhost:5001/auth/sign-in
+
 ## для перевірки 
 
 ### DB configs
