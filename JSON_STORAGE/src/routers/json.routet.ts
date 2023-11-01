@@ -1,9 +1,22 @@
 import Router from "koa-router";
-import { Context } from "koa";
 
-const router = new Router();
+import { jsonController } from "../controllers";
+import { jsonMiddleware } from "../middlewares";
+import { authenticateMiddleware } from "../middlewares/authenticate.middleware";
 
-router.get("/json_path", (ctx:Context) => (ctx.body = "Events List!"));
-router.put("/json_path", (ctx:Context) => (ctx.body = "Event Posted!"));
+const router = new Router({ prefix: "/json-file" });
+
+router.get(
+  "/:userId",
+  authenticateMiddleware.isLogin,
+  jsonMiddleware.isJsonValid,
+  jsonController.getJson,
+);
+router.put(
+  "/:userId",
+  authenticateMiddleware.isLogin,
+  jsonMiddleware.isJsonValid,
+  jsonController.putJson,
+);
 
 export const jsonPathRouter = router.routes();
