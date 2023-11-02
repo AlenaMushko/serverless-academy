@@ -23,16 +23,6 @@ checkAndCreateTable()
     app.use(authRouter);
     app.use(jsonPathRouter);
 
-    app.use(
-      koaBody({
-        multipart: true,
-        formidable: {
-          uploadDir: "./uploads",
-          keepExtensions: true,
-        },
-      }),
-    );
-
     app.listen(PORT, () => {
       console.log(`🚀 Server listening at http://localhost:${PORT}/ 🚀`);
     });

@@ -1,3 +1,5 @@
+import {ApiError} from "../errors";
+import {s3Service} from "./s3.service";
 
 
 class JsonService {
@@ -5,8 +7,21 @@ class JsonService {
 
     };
 
-    public async putJson (userId:string, fileJson:any):Promise<void> {
+    public async putJson (userId:string, file:any):Promise<void> {
+        try {
+            let filePath:string[] = [];
+            if (Array.isArray(file)) {
+                filePath = await s3Service.uploadFiles( file, userId );
+                console.log('arr', filePath)
+            } else {
+                const singleFilePath = await s3Service.uploadSingleFile( file, userId );
+                filePath.push(singleFilePath);
+            }
 
+            // console.log(filePath)
+        } catch (err) {
+            throw new ApiError(err.message, err.status)
+        }
     };
 }
 

@@ -12,6 +12,7 @@ router.get(
   jsonMiddleware.isJsonValid,
   jsonController.getJson,
 );
+
 router.put(
   "/:userId",
   authenticateMiddleware.isLogin,
