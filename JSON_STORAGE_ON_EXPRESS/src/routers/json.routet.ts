@@ -1,22 +1,25 @@
-import koaBody from "koa-body";
-import Router from "koa-router";
+import { Router } from "express";
 
 import { jsonController } from "../controllers";
 import { authenticateMiddleware, jsonMiddleware } from "../middlewares";
 
-const router = new Router({ prefix: "/json-file" });
+const router = Router();
 
 router.get(
-  "/:userId",
+  "/:userId/listFiles",
   authenticateMiddleware.isLogin,
-  jsonMiddleware.isJsonValid,
+  jsonController.getListJson,
+);
+
+router.get(
+  "/:userId/listFiles/:filePath",
+  authenticateMiddleware.isLogin,
   jsonController.getJson,
 );
 
 router.put(
   "/:userId",
   authenticateMiddleware.isLogin,
-  koaBody({ multipart: true }),
   jsonMiddleware.isJsonValid,
   jsonController.putJson,
 );

@@ -1,8 +1,6 @@
 import {Context} from "koa";
 import {jsonService} from "../services";
 import {ApiError} from "../errors";
-// import axios from 'axios';
-
 
 class JsonController {
      public async getJson  (ctx:Context){
@@ -11,6 +9,7 @@ class JsonController {
 
     public async putJson (ctx:Context) {
         try {
+            console.log(ctx.request.body)
             const user = ctx.state.user[0];
             const {file}= ctx.request.files;
             await jsonService.putJson(user.id, file);

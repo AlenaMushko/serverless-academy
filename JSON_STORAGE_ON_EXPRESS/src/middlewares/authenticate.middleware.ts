@@ -1,18 +1,16 @@
+import {NextFunction, Request, Response} from "express";
 import * as jwt from "jsonwebtoken";
-import {Context, Next} from "koa";
 
 import {configs} from "../config";
 import {ApiError} from "../errors";
 import {authRepository, userRepository} from "../repositories";
 
-
 const tokenSecret = configs.ACCESS_TOKEN_SECRET;
 
 class AuthenticateMiddleware {
-    public async isLogin(ctx: Context, next: Next) {
+    public async isLogin(req: Request, res: Response, next: NextFunction) {
         try {
-            const {authorization} = ctx.headers;
-
+            const {authorization} = req.headers;
             if (!authorization) {
                 throw new ApiError("Authorization header missing", 401);
             }
@@ -23,7 +21,6 @@ class AuthenticateMiddleware {
             }
 
             const {userId} = jwt.verify(token, tokenSecret) as jwt.JwtPayload;
-
             const user = await userRepository.findById(userId);
 
             const tokenModel = await authRepository.findToken(userId);
@@ -32,12 +29,10 @@ class AuthenticateMiddleware {
                 throw new ApiError("Token not valid", 401);
             }
 
-            ctx.state.user = user;
-            ctx.state.tokenModel = tokenModel;
-
-            await next();
+            res.locals.user = user;
+            next();
         } catch (err) {
-            ctx.throw(err.status, err.message);
+            next(err);
         }
     }
 }

@@ -1,10 +1,10 @@
-import Router from "koa-router";
+import { Router } from "express";
 
 import { authController } from "../controllers";
 import { authMiddleware, commonMiddleware } from "../middlewares";
 import { userSchema } from "../validations";
 
-const router = new Router({ prefix: "/auth" });
+const router = Router();
 
 router.post(
   "/sign-up",

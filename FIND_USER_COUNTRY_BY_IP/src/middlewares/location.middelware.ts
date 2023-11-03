@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import {ApiError} from "../errors";
 
 class LocationMiddleware {
     public async getIpUser (req: Request, res: Response, next: NextFunction) {
@@ -16,7 +15,7 @@ class LocationMiddleware {
             res.locals.ipAddress = ipAddress;
             next();
         } catch (err) {
-            throw new ApiError("Server Error", 500)
+           next(err);
         }
     }
 

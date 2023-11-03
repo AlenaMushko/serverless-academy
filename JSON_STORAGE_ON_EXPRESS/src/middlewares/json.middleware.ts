@@ -1,31 +1,32 @@
-import { Context, Next } from "koa";
+import { NextFunction, Request, Response } from "express";
 
 import { ApiError } from "../errors";
+import {avatarConfig} from "../constants";
 
 class JsonMiddleware {
-    public async isJsonValid(ctx: Context, next: Next) {
+    public async isJsonValid(req: Request, res: Response, next: NextFunction) {
         try {
-            const {file} = ctx.request.files;
-            if (!file) {
+            const jsonFile =  req.files.file;
+            if (!jsonFile) {
                 throw new ApiError("File was not uploaded", 401);
             }
 
-            const files = Array.isArray(file) ? file : [file];
+            const files= Array.isArray(jsonFile) ? jsonFile : [jsonFile];
 
             files.forEach((file)=>{
                 const { mimetype, size } = file;
 
-                if (mimetype !== 'application/json') {
+                if (mimetype !== avatarConfig.MIMETYPES) {
                     throw new ApiError('File has invalid format', 400);
                 }
-                if (size > 2 * 1024 * 1024) {
+                if (size > avatarConfig.MAX_SIZE) {
                     throw new ApiError("File is too big", 400);
                 }
             })
 
-            await next();
+           next();
         } catch (err) {
-            throw new ApiError(err.message, err.status);
+            next();
         }
     }
 }
