@@ -44,9 +44,4 @@ PORT=5001
 #
 ### AWS_S3 configs
 #
-AWS_S3_BUCKET=taskjson
-AWS_S3_REGION=eu-north-1
-AWS_S3_ACCESS_KEY=AKIASQSSKNYN5QQKD5NR
-AWS_S3_SECRET_ACCESS_KEY=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
-AWS_S3_FILE_PATH=jsonFile
-AWS_S3_UR=https://taskjson.s3.eu-north-1.amazonaws.com/
+
