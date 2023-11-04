@@ -9,13 +9,13 @@ class AuthService {
     public async signUp(body: IUser): Promise<IToken> {
        try {
                 const {password, email} = body;
-                const hashadPassword = await passwordService.hash(password);
+                const hashadPassword = await passwordService.hash(password.trim());
 
-                const userId = await authRepository.createUser(body.email, hashadPassword)
+                const userId = await authRepository.createUser(body.email.trim(), hashadPassword)
 
                 const {accesstoken, refreshtoken} = await tokenService.generateTokenPairs(userId);
 
-                const result = await authRepository.addTokenToTable({user_email: email, user_id:userId, accesstoken, refreshtoken});
+                const result = await authRepository.addTokenToTable({user_email: email.trim(), user_id:userId, accesstoken, refreshtoken});
                 return result;
             } catch (err) {
             throw new ApiError(err.message, err.status)

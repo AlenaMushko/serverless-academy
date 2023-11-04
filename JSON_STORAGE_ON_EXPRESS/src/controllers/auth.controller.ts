@@ -29,7 +29,7 @@ class AuthController {
                         next: NextFunction): Promise<Response<ICredentials>> {
         try {
             const user = res.locals.user;
-            const result = await authService.signIn(user.id, user.email);
+            const result = await authService.signIn(user.id, user.email.trim());
 
             const {user_id, accesstoken, refreshtoken} = result;
 

@@ -8,7 +8,7 @@ import {passwordService} from "../services";
 class AuthMiddleware {
     public async uniqueEmail(req: Request, res: Response, next: NextFunction) {
         try {
-            const user = await authRepository.findOneUser(req.body.email);
+            const user = await authRepository.findOneUser(req.body.email.trim());
 
             if (user) {
                 throw new ApiError("Email already exists", 409);
@@ -21,7 +21,7 @@ class AuthMiddleware {
 
     public async isUserExist(req: Request, res: Response, next: NextFunction) {
         try {
-            const user = await authRepository.findOneUser(req.body.email);
+            const user = await authRepository.findOneUser(req.body.email.trim());
             if (!user) {
                 throw new ApiError("Invalid email or password", 404);
             }
