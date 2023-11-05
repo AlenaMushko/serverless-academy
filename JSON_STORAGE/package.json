@@ -1,0 +1,44 @@
+{
+  "name": "json_storage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "rimraf dist && tsc-watch --onSuccess 'npm run watch:server'",
+    "watch:server": "nodemon 'src/app.ts' --watch './src'",
+    "start:db": "docker compose -f docker-compose.yml up",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.441.0",
+    "@koa/cors": "^4.0.0",
+    "@types/koa-bodyparser": "^4.3.11",
+    "axios": "^1.6.0",
+    "bcrypt": "^5.1.1",
+    "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "koa": "^2.14.2",
+    "koa-body": "^6.0.1",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^12.0.1",
+    "pg": "^8.11.3",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.1",
+    "tsc": "^2.0.4"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.4",
+    "@types/koa": "^2.13.10",
+    "@types/koa__cors": "^4.0.2",
+    "@types/koa-router": "^7.4.6",
+    "@types/node": "^20.8.9",
+    "@types/pg": "^8.10.7",
+    "nodemon": "^3.0.1",
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.2.2"
+  }
+}

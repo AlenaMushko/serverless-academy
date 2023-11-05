@@ -7,5 +7,5 @@ const router = Router();
 
 router.post("/short", urlMiddleware.isOriginalUrl, urlController.shortUrl);
 
-router.all("/:urlId", urlMiddleware.isExistUrlInDB, urlController.redirect);
+router.all("/:urlId", urlMiddleware.checkCache, urlController.redirect);
 export const urlRouter = router;

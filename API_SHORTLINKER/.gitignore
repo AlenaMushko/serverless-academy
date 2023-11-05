@@ -4,5 +4,4 @@ node_modules/
 .vscode
 dist/
 .eslintrc.js
-package.json
 package-lock.json
