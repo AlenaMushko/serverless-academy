@@ -1,8 +1,6 @@
-import { config } from "dotenv";
-
-config();
-
 export const configs = {
+  PORT: process.env.PORT,
+
   DB_USER: process.env.DB_USER,
   DB_HOST: process.env.DB_HOST,
   DB_NAME: process.env.DB_NAME,
@@ -13,8 +11,6 @@ export const configs = {
   POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
   POSTGRES_PORT: process.env.POSTGRES_PORT,
   POSTGRES_DB: process.env.POSTGRES_DB,
-
-  PORT: process.env.PORT,
 
   ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
   REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,

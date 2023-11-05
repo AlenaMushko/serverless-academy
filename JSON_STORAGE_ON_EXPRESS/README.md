@@ -18,11 +18,11 @@
 
 ### DB configs
 #
-DB_USER=user
-DB_HOST=0.0.0.0
-DB_NAME=rest-api
-DB_PASSWORD=pass
-DB_PORT=5432
+# DB_USER=user
+# DB_HOST=0.0.0.0
+# DB_NAME=rest-api
+# DB_PASSWORD=pass
+# DB_PORT=5432
 #
 ### POSTGRES configs
 #

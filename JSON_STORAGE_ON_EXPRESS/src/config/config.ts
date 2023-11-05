@@ -1,7 +1,3 @@
-import { config } from "dotenv";
-
-config();
-
 export const configs = {
   DB_USER: process.env.DB_USER,
   DB_HOST: process.env.DB_HOST,
